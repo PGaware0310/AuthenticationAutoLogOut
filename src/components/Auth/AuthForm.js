@@ -19,36 +19,43 @@ const AuthForm = () => {
     const enteredPassword = passwordInputRef.current.value;
 
     setIsLoading(true);
+    let url;
     if (isLogin) {
+    url="https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyC57BuSHUumQtb7HUFYRxvV6gUdPJE-0Qs"   
     } else {
-      fetch (
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC57BuSHUumQtb7HUFYRxvV6gUdPJE-0Qs",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            email: enteredEmail,
-            password: enteredPassword,
-            returnSecureToken: true,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      ).then((response) => {
-        setIsLoading(false);
-        if (response.ok) {
-        } else {
-          response.json().then((data) => {
-            console.log(data);
-            let errorMessage = "Authentication failed";
-            // if(data && data.error && data.error.message){
-            //   errorMessage=data.error.message;
-            // }
-            alert(errorMessage);
-          });
-        }
-      });
+     url="https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC57BuSHUumQtb7HUFYRxvV6gUdPJE-0Qs"
     }
+    fetch (url,{
+        method: "POST",
+        body: JSON.stringify({
+          email: enteredEmail,
+          password: enteredPassword,
+          returnSecureToken: true,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    ).then((response) => {
+      setIsLoading(false);
+      if (response.ok) {
+        return response.json();
+      } else {
+       return response.json().then((data) => {
+          console.log(data);
+          let errorMessage = "Authentication failed";
+          // if(data && data.error && data.error.message){
+          //   errorMessage=data.error.message;
+          // }
+          throw new Error(errorMessage);
+        });
+      }
+    }).then(data=>{
+      console.log(data);
+    }).catch(err=>{
+      alert(err.message);
+
+    });
   };
 
   return (
