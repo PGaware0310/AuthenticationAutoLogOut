@@ -9,7 +9,7 @@ const authCnt=useContext(AuthContext);
 
 const handleNewPassword=(e)=>{
   e.preventDefault();
-  
+
   const enteredNewPassword=newPassword.current.value;
 
 fetch("https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyC57BuSHUumQtb7HUFYRxvV6gUdPJE-0Qs",{
@@ -22,6 +22,8 @@ fetch("https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyC57Bu
   headers:{
     'Content-Type':'application/json'
   }
+}).then((res)=>{
+  alert("Successfully changed Password",res);
 })
   
 }

@@ -7,6 +7,11 @@ import AuthContext from '../../store/auth-context';
 const MainNavigation = () => {
 const authCnt=useContext(AuthContext);
 
+const onLogoutHandle=(e)=>{
+  e.preventDefault();
+  authCnt.logout();
+}
+
   return (
     <header className={classes.header}>
       <Link to='/'>
@@ -21,7 +26,7 @@ const authCnt=useContext(AuthContext);
             <Link to='/profile'>Profile</Link>
           </li>}
           {authCnt.isLoggedIn && <li>
-            <button>Logout</button>
+            <button onClick={onLogoutHandle}>Logout</button>
           </li>}
           
         </ul>
