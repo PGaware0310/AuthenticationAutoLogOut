@@ -28,8 +28,7 @@ const onLogoutHandle=(e)=>{
           {authCnt.isLoggedIn && <li>
             <button onClick={onLogoutHandle}>Logout</button>
           </li>}
-          
-        </ul>
+          </ul>
       </nav>
     </header>
   );
